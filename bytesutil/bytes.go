@@ -78,9 +78,8 @@ func parseImpl(val interface{}) interface{} {
 		unit := "b"
 
 		if matches == nil {
-			var err error
-			floatValue, err = strconv.ParseFloat(vTrim, 64)
-			if err != nil {
+			floatValue = parseJSInt10(vTrim)
+			if math.IsNaN(floatValue) {
 				return nil
 			}
 			unit = "b"
@@ -239,4 +238,34 @@ func returnJSON(val interface{}) string {
 		return "null"
 	}
 	return string(b)
+}
+
+func parseJSInt10(s string) float64 {
+	s = strings.TrimSpace(s)
+	if s == "" {
+		return math.NaN()
+	}
+	sign := 1.0
+	if strings.HasPrefix(s, "-") {
+		sign = -1.0
+		s = s[1:]
+	} else if strings.HasPrefix(s, "+") {
+		s = s[1:]
+	}
+	digits := ""
+	for _, ch := range s {
+		if ch >= '0' && ch <= '9' {
+			digits += string(ch)
+		} else {
+			break
+		}
+	}
+	if digits == "" {
+		return math.NaN()
+	}
+	val, err := strconv.ParseFloat(digits, 64)
+	if err != nil {
+		return math.NaN()
+	}
+	return sign * val
 }
