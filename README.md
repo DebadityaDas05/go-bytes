@@ -63,11 +63,7 @@ Compile the Go CGo bridge into a shared library binary for your platform:
 Execute the Mocha test suite to verify the native library bridge and formatting logic:
 
 ```bash
-<<<<<<< HEAD
-npx mocha test
-=======
 npm test
->>>>>>> 9b5fc2e385fa551a1f5768edebe3a197e72d6583
 ```
 
 ---
@@ -75,7 +71,7 @@ npm test
 ## 📖 Usage Examples
 
 ```javascript
-const bytes = require('./adapter');
+const bytes = require('./index.js');
 
 // Convert string to bytes integer
 bytes('1KB');                     // 1024
@@ -94,11 +90,9 @@ bytes.format(1024, { decimalPlaces: 3, fixedDecimals: true }); // '1.000KB'
 
 ```text
 bytes-go/
-├── adapter/
-│   └── index.js       # Node.js FFI wrapper powered by Koffi
 ├── bridge/
 │   └── bridge.go      # CGo export functions bridging C types to Go
-├── bytesutil/
+├── src/
 │   └── bytes.go       # Pure Go implementation of bytes formatting and parsing
 ├── test/
 │   ├── bytes.js       # Core constructor unit tests

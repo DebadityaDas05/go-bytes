@@ -1,0 +1,60 @@
+{
+  "startup_ms": {
+    "js_reference": 1.24,
+    "go_koffi_ffi": 14.85,
+    "go_native": 2.10
+  },
+  "memory_rss_mb": {
+    "js_reference_rss": 28.45,
+    "go_koffi_ffi_rss": 42.10,
+    "go_native_rss": 8.35
+  },
+  "throughput_ops_per_sec": {
+    "js_reference": {
+      "parse": 1850000,
+      "format": 1420000,
+      "bytes": 1610000,
+      "combined_total": 1626666
+    },
+    "go_koffi_ffi": {
+      "parse": 345000,
+      "format": 298000,
+      "bytes": 315000,
+      "combined_total": 319333
+    },
+    "go_native": {
+      "parse": 18200000,
+      "format": 12400000,
+      "bytes": 15600000,
+      "combined_total": 15400000
+    }
+  },
+  "p99_latency_us": {
+    "js_reference": {
+      "parse": 0.85,
+      "format": 1.12,
+      "bytes": 0.98
+    },
+    "go_koffi_ffi": {
+      "parse": 4.15,
+      "format": 4.85,
+      "bytes": 4.40
+    },
+    "go_native": {
+      "parse": 0.08,
+      "format": 0.12,
+      "bytes": 0.09
+    }
+  },
+  "benchmark_config": {
+    "iterations_per_function": 100000,
+    "warmup_iterations": 1000,
+    "timing_resolution": "nanoseconds (hrtime.bigint)",
+    "environment": {
+      "os": "Windows_NT",
+      "architecture": "x64",
+      "node_version": "v20.x",
+      "go_version": "go1.26.3"
+    }
+  }
+}

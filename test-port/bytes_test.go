@@ -3,7 +3,7 @@ package bytesutil_test
 import (
 	"testing"
 
-	"github.com/DebadityaDas05/go-bytes/bytesutil"
+	bytesutil "github.com/DebadityaDas05/go-bytes/src"
 )
 
 func TestParseNative(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"unsafe"
 
-	"github.com/DebadityaDas05/go-bytes/bytesutil"
+	bytesutil "github.com/DebadityaDas05/go-bytes/src"
 )
 
 //export Bytes

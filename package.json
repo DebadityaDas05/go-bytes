@@ -8,7 +8,8 @@
     "build:linux": "go build -buildmode=c-shared -o libbytes.so ./bridge",
     "build:mac": "go build -buildmode=c-shared -o libbytes.dylib ./bridge",
     "test": "mocha test",
-    "fuzz": "node fuzz/harness.js"
+    "fuzz": "node fuzz/harness.js",
+    "bench": "node bench/benchmark.js"
   },
   "dependencies": {
     "koffi": "^3.1.4"
