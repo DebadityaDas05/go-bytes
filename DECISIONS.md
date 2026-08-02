@@ -135,7 +135,7 @@ Ensures zero C-heap memory leaks during high-throughput Node.js FFI execution.
 
 Differential fuzz testing over 15 Million iterations ([`fuzz/harness.js`](https://github.com/DebadityaDas05/go-bytes/blob/main/fuzz/harness.js)) uncovered **3 critical bugs** in `visionmedia/bytes.js`. 
 
-`bytes-go` intentionally fixes these bugs to enforce mathematical correctness and specification compliance.
+`bytes-go` intentionally fixes these bugs to enforce mathematical correctness and specification compliance. It results in a divergence from the original library's behavior, which can be seen in the [`fuzz/BUGS_FOUND.md`](https://github.com/DebadityaDas05/go-bytes/blob/main/fuzz/BUGS_FOUND.md) file.
 
 ---
 
