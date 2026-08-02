@@ -249,7 +249,7 @@ if (divergences === 0) {
     log(`SUCCESS: 0 divergences detected across ${totalTests.toLocaleString()} differential tests.`);
     log(`The Go implementation (bytesutil) has 100% behavioral parity with index.js.`);
 } else {
-    log(`FAILURE: ${divergences} divergences found!`);
+    log(`${divergences} divergences found!`);
     log(`First 5 Mismatches:`);
     failures.slice(0, 5).forEach((f, idx) => {
         log(`  Match #${idx + 1}: ${JSON.stringify(f)}`);
