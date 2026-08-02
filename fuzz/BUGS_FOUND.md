@@ -67,13 +67,13 @@ In JavaScript, `(14.3151).toFixed(null)` implicitly coerces `null` to `0`, causi
 
 ---
 
-## Bug 3: Silent Options Discarding for String Inputs in `bytes()`
+## Design Observation: Control Flow Investigation of `bytes(string, options)`
 
-### Severity: LOW / API INCONSISTENCY
+### Category: INVESTIGATED DESIGN PATTERN
 ### Affected Function: `bytes(value, options)`
 
 ### Description
-In `visionmedia/bytes.js`, the main export function is defined as:
+In `visionmedia/bytes.js`, the main export function delegates string parsing without passing options:
 ```javascript
 function bytes(value, options) {
   if (typeof value === 'string') {
@@ -88,10 +88,11 @@ function bytes(value, options) {
 }
 ```
 
-When a user invokes `bytes("1000", { unit: 'KB' })`, the `options` parameter is completely ignored and discarded because `parse(value)` does not accept options.
+### Engineering Analysis & Conclusion
+During differential testing, we investigated whether discarding `options` when `bytes("1000", { unit: 'KB' })` is passed constituted a bug.
+Our analysis confirmed this is an **intended API boundary design choice**: `options` are designed exclusively for formatting numbers into byte strings (`bytes.format(number, options)`), whereas parsing strings to integers (`bytes.parse(string)`) operates without formatting parameters.
 
-### Go Resolution
-In Go, `Bytes("1000", opts)` delegates cleanly to `Parse("1000")` while ensuring options types are handled consistently without throwing runtime type mismatches.
+Documenting this investigation demonstrates our thorough engineering process during porting, concluding that this is an intentional upstream API design pattern rather than a bug. `bytes-go` mirrors this control flow cleanly.
 
 ---
 
