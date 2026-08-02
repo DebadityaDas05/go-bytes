@@ -67,30 +67,23 @@ func Bytes(val interface{}, opts *Options) interface{} {
 }
 
 // Parse parses a string or number into integer byte count.
-// Accepts native Go types (string, float64, int, etc.) and returns interface{} (float64 or nil).
+// Accepts native Go types (string, float64, int, etc.) and returns interface{} (int64, float64, or nil).
 func Parse(val interface{}) interface{} {
 	switch v := val.(type) {
 	case float64:
-		if math.IsNaN(v) || math.IsInf(v, 0) {
-			return nil
-		}
-		return v
+		return toBestNumericType(v)
 	case float32:
-		f := float64(v)
-		if math.IsNaN(f) || math.IsInf(f, 0) {
-			return nil
-		}
-		return f
+		return toBestNumericType(float64(v))
 	case int:
-		return float64(v)
+		return int64(v)
 	case int64:
-		return float64(v)
+		return v
 	case int32:
-		return float64(v)
+		return int64(v)
 	case uint:
-		return float64(v)
+		return int64(v)
 	case uint64:
-		return float64(v)
+		return toBestNumericType(float64(v))
 	case string:
 		vTrim := strings.TrimSpace(v)
 		matches := parseRegExp.FindStringSubmatch(strings.ToLower(vTrim))
@@ -117,10 +110,20 @@ func Parse(val interface{}) interface{} {
 			return nil
 		}
 
-		return math.Floor(unitMap[unit] * floatValue)
+		return toBestNumericType(math.Floor(unitMap[unit] * floatValue))
 	default:
 		return nil
 	}
+}
+
+func toBestNumericType(f float64) interface{} {
+	if math.IsNaN(f) || math.IsInf(f, 0) {
+		return nil
+	}
+	if f == math.Trunc(f) && f >= float64(math.MinInt64) && f <= float64(math.MaxInt64) {
+		return int64(f)
+	}
+	return f
 }
 
 // Format converts a float64 byte count into a human-readable string (e.g. "1KB").

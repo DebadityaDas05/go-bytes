@@ -11,10 +11,10 @@ func TestParseNative(t *testing.T) {
 		input    interface{}
 		expected interface{}
 	}{
-		{"1KB", 1024.0},
-		{"1.5MB", 1572864.0},
-		{"100", 100.0},
-		{1024, 1024.0},
+		{"1KB", int64(1024)},
+		{"1.5MB", int64(1572864)},
+		{"100", int64(100)},
+		{1024, int64(1024)},
 		{1024.5, 1024.5},
 		{"invalid", nil},
 		{nil, nil},
@@ -23,7 +23,7 @@ func TestParseNative(t *testing.T) {
 	for _, tt := range tests {
 		res := bytesutil.Parse(tt.input)
 		if res != tt.expected {
-			t.Errorf("Parse(%v) = %v; want %v", tt.input, res, tt.expected)
+			t.Errorf("Parse(%v) = %v (%T); want %v (%T)", tt.input, res, res, tt.expected, tt.expected)
 		}
 	}
 }
@@ -55,8 +55,8 @@ func TestFormatNative(t *testing.T) {
 }
 
 func TestBytesNative(t *testing.T) {
-	if res := bytesutil.Bytes("1KB", nil); res != 1024.0 {
-		t.Errorf("Bytes(\"1KB\") = %v; want 1024.0", res)
+	if res := bytesutil.Bytes("1KB", nil); res != int64(1024) {
+		t.Errorf("Bytes(\"1KB\") = %v; want 1024", res)
 	}
 	if res := bytesutil.Bytes(1024.0, nil); res != "1KB" {
 		t.Errorf("Bytes(1024.0) = %v; want \"1KB\"", res)
