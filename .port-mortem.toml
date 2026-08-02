@@ -1,0 +1,9 @@
+[project]
+name = "bytes-go"
+track = "JavaScript-to-Go"
+
+[source]
+url = "https://github.com/visionmedia/bytes.js"
+
+[verification]
+kickoff_hash = "959739ae1b4728b2bde1902275fdc5a5375b5c40f863ea6a962de9b7b21ea5b0"

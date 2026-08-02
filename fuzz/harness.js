@@ -182,7 +182,7 @@ while (Date.now() < targetEndTime) {
         bytesTests++;
         const val = getRandomInput();
         const opts = getRandomOptions();
-        
+
         let jsRes, goRes;
         try { jsRes = jsBytes(val, opts); } catch (e) { jsRes = 'ERROR: ' + e.message; }
         try { goRes = goBytes(val, opts); } catch (e) { goRes = 'ERROR: ' + e.message; }

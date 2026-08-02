@@ -58,50 +58,18 @@ Compile the Go CGo bridge into a shared library binary for your platform:
 
 ---
 
-## 🧪 Running Tests & Fuzzing
+## 🧪 Running Tests
 
-### 1. Node.js Mocha Test Suite (Original JS Compatibility)
-Execute the original Mocha test suite to verify the Koffi FFI dynamic library bridge:
+Execute the Mocha test suite to verify the native library bridge and formatting logic:
+
 ```bash
 npm test
 ```
-*(Or `npx mocha test-original`)*
-
-### 2. Go Native Unit Tests
-Run the native Go unit tests:
-```bash
-go test ./test-port
-```
-
-### 3. Differential Fuzzing Suite
-Run the 60s+ differential fuzzer comparing JS reference output vs Go implementation across millions of randomized inputs:
-```bash
-npm run fuzz
-```
-
----
-
-## ⚡ Performance & Benchmarks
-
-Run the benchmark suite to evaluate throughput ($\text{ops/sec}$), tail latency ($P_{99}$), startup time, and memory footprint:
-
-```bash
-# Run Go standalone benchmark runner (exports bench/results.json)
-go run ./bench/main.go
-
-# Run Go standard testing.B microbenchmarks
-go test -bench=. ./bench
-```
-
-Detailed benchmarking methodologies and empirical results can be found in:
-- [`bench/methodology.md`](https://github.com/DebadityaDas05/go-bytes/blob/main/bench/methodology.md)
-- [`bench/results.json`](https://github.com/DebadityaDas05/go-bytes/blob/main/bench/results.json)
 
 ---
 
 ## 📖 Usage Examples
 
-### JavaScript / Node.js
 ```javascript
 const bytes = require('./index.js');
 
@@ -116,51 +84,23 @@ bytes.format(1024, { unitSeparator: ' ' });      // '1 KB'
 bytes.format(1024, { decimalPlaces: 3, fixedDecimals: true }); // '1.000KB'
 ```
 
-### Native Go
-```go
-package main
-
-import (
-    "fmt"
-    bytesutil "github.com/DebadityaDas05/go-bytes/src"
-)
-
-func main() {
-    fmt.Println(bytesutil.Parse("1.5MB")) // Outputs: 1572864
-    fmt.Println(bytesutil.Format(1024, nil)) // Outputs: "1KB"
-}
-```
-
 ---
 
 ## 🏗️ Project Architecture
 
 ```text
 bytes-go/
-├── bench/
-│   ├── benchmark.js        # Node.js performance benchmark runner
-│   ├── bytes_bench_test.go # Go standard testing.B microbenchmarks
-│   ├── main.go             # Go benchmark runner exporting results.json
-│   ├── methodology.md      # Detailed benchmark methodology & formulas
-│   └── results.json        # Quantitative p99, RSS, startup & throughput metrics
 ├── bridge/
-│   └── bridge.go           # CGo export functions bridging C types to Go
-├── fuzz/
-│   ├── harness.js          # Differential fuzzer engine comparing JS vs Go
-│   ├── index.js            # Original reference JS library
-│   └── log.txt             # 60s+ execution log demonstrating 0 divergences
+│   └── bridge.go      # CGo export functions bridging C types to Go
 ├── src/
-│   └── bytes.go            # Pure Go implementation of bytes formatting and parsing
-├── test-original/
-│   ├── bytes.js            # Core constructor unit tests (Mocha)
-│   ├── byte-format.js      # Format function test suite (Mocha)
-│   └── byte-parse.js       # Parse function test suite (Mocha)
-├── test-port/
-│   └── bytes_test.go       # Go native unit test suite
-├── index.js                # Node.js FFI wrapper powered by Koffi
-├── go.mod                  # Go module definition
-├── package.json            # Node.js package configuration
-└── README.md               # Project documentation
+│   └── bytes.go       # Pure Go implementation of bytes formatting and parsing
+├── test/
+│   ├── bytes.js       # Core constructor unit tests
+│   ├── byte-format.js # Format function test suite
+│   └── byte-parse.js  # Parse function test suite
+├── go.mod             # Go module definition
+├── package.json       # Node.js package configuration
+└── README.md          # Project documentation
 ```
 
 ---

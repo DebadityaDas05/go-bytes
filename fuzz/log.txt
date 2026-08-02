@@ -1,7 +1,7 @@
 ================================================================
   DIFFERENTIAL FUZZ HARNESS FOR BYTES-GO
 ================================================================
-Start Time: 2026-08-02T12:25:00.000Z
+Start Time: 2026-08-02T08:03:07.641Z
 Target Duration: 60 seconds
 JS Reference: fuzz/index.js
 Go Bridge: bytes-go/index.js (libbytes.dll)
@@ -21,25 +21,30 @@ Executing README Specification Seed Suite (10 cases)...
 All README Specification Seed Cases PASSED (100% parity).
 
 Running randomized fuzz loop for 60s...
-[10.0s] Executed 1,482,910 iterations (148291 ops/sec) | Divergences: 0
-[20.0s] Executed 2,965,820 iterations (148291 ops/sec) | Divergences: 0
-[30.0s] Executed 4,448,730 iterations (148291 ops/sec) | Divergences: 0
-[40.0s] Executed 5,931,640 iterations (148291 ops/sec) | Divergences: 0
-[50.0s] Executed 7,414,550 iterations (148291 ops/sec) | Divergences: 0
-[60.0s] Executed 8,897,460 iterations (148291 ops/sec) | Divergences: 0
+[10.0s] Executed 27,90,980 iterations (279098 ops/sec) | Divergences: 162452
+[20.0s] Executed 50,22,958 iterations (251148 ops/sec) | Divergences: 293077
+[30.0s] Executed 75,02,333 iterations (250078 ops/sec) | Divergences: 437594
+[40.0s] Executed 1,01,17,497 iterations (252937 ops/sec) | Divergences: 590081
+[50.0s] Executed 1,27,76,962 iterations (255539 ops/sec) | Divergences: 745269
+[60.0s] Executed 1,53,62,429 iterations (256040 ops/sec) | Divergences: 895914
 
 ================================================================
   FUZZING COMPLETE
 ================================================================
-Total Duration       : 60.01 seconds
-Total Executions     : 8,898,942
-  - bytes() calls    : 2,966,314
-  - parse() calls    : 2,966,280
-  - format() calls   : 2,966,348
-Execution Rate       : 148291 ops/sec
-Total Divergences    : 0
+Total Duration       : 60.00 seconds
+Total Executions     : 1,53,62,429
+  - bytes() calls    : 51,18,902
+  - parse() calls    : 51,17,489
+  - format() calls   : 51,26,038
+Execution Rate       : 256040 ops/sec
+Total Divergences    : 895914
 ================================================================
-SUCCESS: 0 divergences detected across 8,898,942 differential tests.
-The Go implementation (bytesutil) has 100% behavioral parity with index.js.
+FAILURE: 895914 divergences found!
+First 5 Mismatches:
+  Match #1: {"mode":"bytes","val":"  1048575 KB  ","opts":{"decimalPlaces":10,"fixedDecimals":false,"thousandsSeparator":"","unitSeparator":"\t"},"jsRes":1048575,"goRes":1073740800}
+  Match #2: {"mode":"parse","val":"  1023 MB  ","jsRes":1023,"goRes":1072693248}
+  Match #3: {"mode":"bytes","val":"  1125899906842623 kB  ","opts":{"decimalPlaces":3,"fixedDecimals":false,"thousandsSeparator":",","unit":"TB"},"jsRes":1125899906842623,"goRes":1152921504606846000}
+  Match #4: {"mode":"bytes","val":"  1125899906842623 gb  ","jsRes":1125899906842623,"goRes":1.2089258196146281e+24}
+  Match #5: {"mode":"parse","val":"  -1 mB  ","jsRes":-1,"goRes":-1048576}
 
-End Time: 2026-08-02T12:26:00.010Z
+End Time: 2026-08-02T08:04:07.644Z
