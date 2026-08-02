@@ -63,7 +63,11 @@ Compile the Go CGo bridge into a shared library binary for your platform:
 Execute the Mocha test suite to verify the native library bridge and formatting logic:
 
 ```bash
+<<<<<<< HEAD
 npx mocha test
+=======
+npm test
+>>>>>>> 9b5fc2e385fa551a1f5768edebe3a197e72d6583
 ```
 
 ---

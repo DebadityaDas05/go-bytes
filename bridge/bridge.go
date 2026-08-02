@@ -6,8 +6,9 @@ package main
 import "C"
 
 import (
-	"bytes-go/bytesutil"
 	"unsafe"
+
+	"github.com/DebadityaDas05/go-bytes/bytesutil"
 )
 
 //export Bytes
