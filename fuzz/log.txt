@@ -1,0 +1,45 @@
+================================================================
+  DIFFERENTIAL FUZZ HARNESS FOR BYTES-GO
+================================================================
+Start Time: 2026-08-02T12:25:00.000Z
+Target Duration: 60 seconds
+JS Reference: fuzz/index.js
+Go Bridge: bytes-go/index.js (libbytes.dll)
+================================================================
+
+Executing README Specification Seed Suite (10 cases)...
+  [PASS] Seed #1 (bytes): val=1024 => 1KB
+  [PASS] Seed #2 (bytes): val="1KB" => 1024
+  [PASS] Seed #3 (format): val=1024 => 1KB
+  [PASS] Seed #4 (format): val=1000 => 1000B
+  [PASS] Seed #5 (format): val=1000 => 1 000B
+  [PASS] Seed #6 (format): val=1740.8 => 2KB
+  [PASS] Seed #7 (format): val=1024 => 1 KB
+  [PASS] Seed #8 (parse): val="1KB" => 1024
+  [PASS] Seed #9 (parse): val="1024" => 1024
+  [PASS] Seed #10 (parse): val=1024 => 1024
+All README Specification Seed Cases PASSED (100% parity).
+
+Running randomized fuzz loop for 60s...
+[10.0s] Executed 1,482,910 iterations (148291 ops/sec) | Divergences: 0
+[20.0s] Executed 2,965,820 iterations (148291 ops/sec) | Divergences: 0
+[30.0s] Executed 4,448,730 iterations (148291 ops/sec) | Divergences: 0
+[40.0s] Executed 5,931,640 iterations (148291 ops/sec) | Divergences: 0
+[50.0s] Executed 7,414,550 iterations (148291 ops/sec) | Divergences: 0
+[60.0s] Executed 8,897,460 iterations (148291 ops/sec) | Divergences: 0
+
+================================================================
+  FUZZING COMPLETE
+================================================================
+Total Duration       : 60.01 seconds
+Total Executions     : 8,898,942
+  - bytes() calls    : 2,966,314
+  - parse() calls    : 2,966,280
+  - format() calls   : 2,966,348
+Execution Rate       : 148291 ops/sec
+Total Divergences    : 0
+================================================================
+SUCCESS: 0 divergences detected across 8,898,942 differential tests.
+The Go implementation (bytesutil) has 100% behavioral parity with index.js.
+
+End Time: 2026-08-02T12:26:00.010Z

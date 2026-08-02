@@ -7,7 +7,8 @@
     "build:win": "go build -buildmode=c-shared -o libbytes.dll ./bridge",
     "build:linux": "go build -buildmode=c-shared -o libbytes.so ./bridge",
     "build:mac": "go build -buildmode=c-shared -o libbytes.dylib ./bridge",
-    "test": "mocha test"
+    "test": "mocha test",
+    "fuzz": "node fuzz/harness.js"
   },
   "dependencies": {
     "koffi": "^3.1.4"
