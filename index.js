@@ -2,8 +2,8 @@ const koffi = require("koffi");
 const path = require("path");
 
 const libPath = process.platform === "win32"
-    ? path.join(__dirname, "../libbytes.dll")
-    : path.join(__dirname, "../libbytes.so");
+    ? path.join(__dirname, "./libbytes.dll")
+    : path.join(__dirname, "./libbytes.so");
 
 const lib = koffi.load(libPath);
 
@@ -36,3 +36,5 @@ bytes.parse = parse;
 bytes.format = format;
 
 module.exports = bytes;
+module.exports.format = format;
+module.exports.parse = parse;

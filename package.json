@@ -1,5 +1,18 @@
 {
+  "name": "bytes-go",
+  "version": "1.0.0",
+  "description": "Go native implementation of bytes exposed to Node.js via Koffi FFI",
+  "main": "index.js",
+  "scripts": {
+    "build:win": "go build -buildmode=c-shared -o libbytes.dll ./bridge",
+    "build:linux": "go build -buildmode=c-shared -o libbytes.so ./bridge",
+    "build:mac": "go build -buildmode=c-shared -o libbytes.dylib ./bridge",
+    "test": "mocha test"
+  },
   "dependencies": {
     "koffi": "^3.1.4"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
   }
 }
