@@ -86,9 +86,17 @@ func parseJSONOpts(optsJson string) *bytesutil.Options {
 	if optsJson == "" || optsJson == "undefined" || optsJson == "null" {
 		return nil
 	}
+	var raw map[string]interface{}
+	if err := json.Unmarshal([]byte(optsJson), &raw); err != nil {
+		return nil
+	}
 	var opts bytesutil.Options
 	if err := json.Unmarshal([]byte(optsJson), &opts); err != nil {
 		return nil
+	}
+	if v, exists := raw["decimalPlaces"]; exists && v == nil {
+		zero := 0
+		opts.DecimalPlaces = &zero
 	}
 	return &opts
 }
