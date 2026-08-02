@@ -1,7 +1,6 @@
 package bytesutil
 
 import (
-	"encoding/json"
 	"fmt"
 	"math"
 	"regexp"
@@ -28,48 +27,70 @@ type Options struct {
 	UnitSeparator      *string `json:"unitSeparator"`
 }
 
-// Bytes processes JSON string inputs from C bridge and returns JSON string result
-func Bytes(valJson string, optsJson string) string {
-	val := parseJSONVal(valJson)
+// Bytes converts a string (e.g. "1KB") to bytes or a number (e.g. 1024) to a formatted byte string.
+// Accepts native Go types (string, float64, int, etc.) and returns interface{} (float64, string, or nil).
+func Bytes(val interface{}, opts *Options) interface{} {
 	if val == nil {
-		return returnJSON(nil)
+		return nil
 	}
 
 	switch v := val.(type) {
 	case string:
-		return returnJSON(parseImpl(v))
+		return Parse(v)
 	case float64:
-		opts := parseJSONOpts(optsJson)
-		return returnJSON(formatImpl(v, opts))
+		return Format(v, opts)
+	case float32:
+		return Format(float64(v), opts)
+	case int:
+		return Format(float64(v), opts)
+	case int64:
+		return Format(float64(v), opts)
+	case int32:
+		return Format(float64(v), opts)
+	case int8:
+		return Format(float64(v), opts)
+	case int16:
+		return Format(float64(v), opts)
+	case uint:
+		return Format(float64(v), opts)
+	case uint64:
+		return Format(float64(v), opts)
+	case uint32:
+		return Format(float64(v), opts)
+	case uint8:
+		return Format(float64(v), opts)
+	case uint16:
+		return Format(float64(v), opts)
 	default:
-		return returnJSON(nil)
+		return nil
 	}
 }
 
-// Parse processes JSON string input from C bridge and returns JSON string result
-func Parse(valJson string) string {
-	val := parseJSONVal(valJson)
-	return returnJSON(parseImpl(val))
-}
-
-// Format processes JSON string inputs from C bridge and returns JSON string result
-func Format(valJson string, optsJson string) string {
-	val := parseJSONVal(valJson)
-	num, ok := val.(float64)
-	if !ok {
-		return returnJSON(nil)
-	}
-	opts := parseJSONOpts(optsJson)
-	return returnJSON(formatImpl(num, opts))
-}
-
-func parseImpl(val interface{}) interface{} {
+// Parse parses a string or number into integer byte count.
+// Accepts native Go types (string, float64, int, etc.) and returns interface{} (float64 or nil).
+func Parse(val interface{}) interface{} {
 	switch v := val.(type) {
 	case float64:
 		if math.IsNaN(v) || math.IsInf(v, 0) {
 			return nil
 		}
 		return v
+	case float32:
+		f := float64(v)
+		if math.IsNaN(f) || math.IsInf(f, 0) {
+			return nil
+		}
+		return f
+	case int:
+		return float64(v)
+	case int64:
+		return float64(v)
+	case int32:
+		return float64(v)
+	case uint:
+		return float64(v)
+	case uint64:
+		return float64(v)
 	case string:
 		vTrim := strings.TrimSpace(v)
 		matches := parseRegExp.FindStringSubmatch(strings.ToLower(vTrim))
@@ -102,7 +123,9 @@ func parseImpl(val interface{}) interface{} {
 	}
 }
 
-func formatImpl(value float64, options *Options) interface{} {
+// Format converts a float64 byte count into a human-readable string (e.g. "1KB").
+// Returns interface{} (string or nil if value is invalid).
+func Format(value float64, options *Options) interface{} {
 	if math.IsNaN(value) || math.IsInf(value, 0) {
 		return nil
 	}
@@ -205,39 +228,6 @@ func insertThousands(s, sep string) string {
 		return "-" + string(out)
 	}
 	return string(out)
-}
-
-func parseJSONVal(valJson string) interface{} {
-	if valJson == "" || valJson == "undefined" {
-		return nil
-	}
-	var val interface{}
-	if err := json.Unmarshal([]byte(valJson), &val); err != nil {
-		return nil
-	}
-	return val
-}
-
-func parseJSONOpts(optsJson string) *Options {
-	if optsJson == "" || optsJson == "undefined" || optsJson == "null" {
-		return nil
-	}
-	var opts Options
-	if err := json.Unmarshal([]byte(optsJson), &opts); err != nil {
-		return nil
-	}
-	return &opts
-}
-
-func returnJSON(val interface{}) string {
-	if val == nil {
-		return "null"
-	}
-	b, err := json.Marshal(val)
-	if err != nil {
-		return "null"
-	}
-	return string(b)
 }
 
 func parseJSInt10(s string) float64 {
