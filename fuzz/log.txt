@@ -1,7 +1,7 @@
 ================================================================
   DIFFERENTIAL FUZZ HARNESS FOR BYTES-GO
 ================================================================
-Start Time: 2026-08-02T08:03:07.641Z
+Start Time: 2026-08-02T14:50:49.326Z
 Target Duration: 60 seconds
 JS Reference: fuzz/index.js
 Go Bridge: bytes-go/index.js (libbytes.dll)
@@ -21,30 +21,30 @@ Executing README Specification Seed Suite (10 cases)...
 All README Specification Seed Cases PASSED (100% parity).
 
 Running randomized fuzz loop for 60s...
-[10.0s] Executed 27,90,980 iterations (279098 ops/sec) | Divergences: 162452
-[20.0s] Executed 50,22,958 iterations (251148 ops/sec) | Divergences: 293077
-[30.0s] Executed 75,02,333 iterations (250078 ops/sec) | Divergences: 437594
-[40.0s] Executed 1,01,17,497 iterations (252937 ops/sec) | Divergences: 590081
-[50.0s] Executed 1,27,76,962 iterations (255539 ops/sec) | Divergences: 745269
-[60.0s] Executed 1,53,62,429 iterations (256040 ops/sec) | Divergences: 895914
+[10.0s] Executed 29,30,864 iterations (293086 ops/sec) | Divergences: 170843
+[20.0s] Executed 57,14,577 iterations (285729 ops/sec) | Divergences: 332923
+[30.0s] Executed 83,18,585 iterations (277286 ops/sec) | Divergences: 485051
+[40.0s] Executed 1,10,77,260 iterations (276932 ops/sec) | Divergences: 645937
+[50.0s] Executed 1,37,26,651 iterations (274533 ops/sec) | Divergences: 801309
+[60.0s] Executed 1,66,69,774 iterations (277830 ops/sec) | Divergences: 973723
 
 ================================================================
   FUZZING COMPLETE
 ================================================================
 Total Duration       : 60.00 seconds
-Total Executions     : 1,53,62,429
-  - bytes() calls    : 51,18,902
-  - parse() calls    : 51,17,489
-  - format() calls   : 51,26,038
-Execution Rate       : 256040 ops/sec
-Total Divergences    : 895914
+Total Executions     : 1,66,69,774
+  - bytes() calls    : 55,57,254
+  - parse() calls    : 55,58,189
+  - format() calls   : 55,54,331
+Execution Rate       : 277830 ops/sec
+Total Divergences    : 973723
 ================================================================
-FAILURE: 895914 divergences found!
+973723 divergences found!
 First 5 Mismatches:
-  Match #1: {"mode":"bytes","val":"  1048575 KB  ","opts":{"decimalPlaces":10,"fixedDecimals":false,"thousandsSeparator":"","unitSeparator":"\t"},"jsRes":1048575,"goRes":1073740800}
-  Match #2: {"mode":"parse","val":"  1023 MB  ","jsRes":1023,"goRes":1072693248}
-  Match #3: {"mode":"bytes","val":"  1125899906842623 kB  ","opts":{"decimalPlaces":3,"fixedDecimals":false,"thousandsSeparator":",","unit":"TB"},"jsRes":1125899906842623,"goRes":1152921504606846000}
-  Match #4: {"mode":"bytes","val":"  1125899906842623 gb  ","jsRes":1125899906842623,"goRes":1.2089258196146281e+24}
-  Match #5: {"mode":"parse","val":"  -1 mB  ","jsRes":-1,"goRes":-1048576}
+  Match #1: {"mode":"bytes","val":"  1025 MB  ","opts":{"decimalPlaces":3},"jsRes":1025,"goRes":1074790400}
+  Match #2: {"mode":"format","val":-12780531341.677109,"opts":{"decimalPlaces":5,"thousandsSeparator":"."},"jsRes":"-11.90280GB","goRes":"-11.9028GB"}
+  Match #3: {"mode":"parse","val":"  -0.5 MB  ","jsRes":0,"goRes":-524288}
+  Match #4: {"mode":"format","val":-1142605221625.2163,"opts":{"decimalPlaces":4,"fixedDecimals":false,"unit":"pb"},"jsRes":"-0.0010pb","goRes":"-0.001pb"}
+  Match #5: {"mode":"parse","val":"  1073741823 tb  ","jsRes":1073741823,"goRes":1.1805916196178997e+21}
 
-End Time: 2026-08-02T08:04:07.644Z
+End Time: 2026-08-02T14:51:49.336Z
